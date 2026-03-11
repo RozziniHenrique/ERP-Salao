@@ -6,20 +6,16 @@ import ServicoForm from "./components/ServicoForm";
 import ServicoTable from "./components/ServicoTable";
 
 export default function Servicos() {
-  // ESTADOS
   const [servicos, setServicos] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Filtros
   const [busca, setBusca] = useState("");
   const [verInativos, setVerInativos] = useState(false);
 
-  // Edição
   const [editandoId, setEditandoId] = useState(null);
   const estadoInicial = { nome: "", preco: "", descricao: "" };
   const [novoServico, setNovoServico] = useState(estadoInicial);
 
-  // CARREGAMENTO
   const carregarServicos = async () => {
     try {
       setLoading(true);
@@ -37,19 +33,16 @@ export default function Servicos() {
     carregarServicos();
   }, [verInativos]);
 
-  // FILTRAGEM (FRONT-END)
   const servicosFiltrados = servicos.filter((s) =>
     (s.nome || "").toLowerCase().includes(busca.toLowerCase()),
   );
 
-  // CÁLCULOS PARA STATS
   const totalAtivos = servicos.filter((s) => s.ativo !== false).length;
   const ticketMedio =
     servicos.length > 0
       ? servicos.reduce((acc, s) => acc + (s.preco || 0), 0) / servicos.length
       : 0;
 
-  // AÇÕES
   const handleSalvar = async (e) => {
     e.preventDefault();
     try {

@@ -7,17 +7,14 @@ import FuncionarioModal from "./components/FuncionarioModal";
 import { getErrorMessage } from "@/utils/errorHandler";
 
 export default function Funcionarios() {
-  // --- ESTADOS ---
   const [funcionarios, setFuncionarios] = useState([]);
   const [especialidades, setEspecialidades] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Filtros
   const [buscaNome, setBuscaNome] = useState("");
   const [filtroEsp, setFiltroEsp] = useState("");
   const [verInativos, setVerInativos] = useState(false);
 
-  // Modais e Edição
   const [funcSelecionado, setFuncSelecionado] = useState(null);
   const [editandoId, setEditandoId] = useState(null);
 
@@ -40,7 +37,6 @@ export default function Funcionarios() {
 
   const [novoFunc, setNovoFunc] = useState(estadoInicial);
 
-  // --- CARREGAMENTO DE DADOS ---
   const carregarDados = async () => {
     try {
       setLoading(true);
@@ -50,7 +46,6 @@ export default function Funcionarios() {
       ]);
 
       const listaBruta = resFunc.data.content || resFunc.data || [];
-      // Remove o admin/id 1 se necessário
       setFuncionarios(listaBruta.filter((f) => f.id !== 1));
       setEspecialidades(resEsp.data.content || resEsp.data || []);
     } catch (err) {
@@ -64,6 +59,29 @@ export default function Funcionarios() {
     carregarDados();
   }, [verInativos]);
 
+  useEffect(() => {
+    if (!editandoId && novoFunc.nome) {
+      const nomeLimpo = novoFunc.nome
+        .trim()
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
+
+      const partes = nomeLimpo.split(" ");
+
+      if (partes.length >= 2) {
+        const primeiroNome = partes[0];
+        const ultimoNome = partes[partes.length - 1];
+        const emailGerado = `${primeiroNome}.${ultimoNome}@stefer.com`;
+
+        setNovoFunc((prev) => ({
+          ...prev,
+          email: emailGerado,
+        }));
+      }
+    }
+  }, [novoFunc.nome, editandoId]);
+
   const funcionariosFiltrados = funcionarios.filter((f) => {
     const matchesNome = (f.nome || "")
       .toLowerCase()
@@ -75,9 +93,9 @@ export default function Funcionarios() {
     return matchesNome && matchesEsp;
   });
 
-  // --- AÇÕES DO FORMULÁRIO ---
   const handleSave = async (e) => {
     e.preventDefault();
+    console.log("IDs que estão sendo enviados:", novoFunc.especialidadesIds);
     try {
       const payloadLimpo = {
         nome: novoFunc.nome,
@@ -135,6 +153,41 @@ export default function Funcionarios() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  const handleToggleEspecialidade = async (espId) => {
+    const idStr = String(espId);
+    const espSelect = novoFunc.especialidadesIds.includes(idStr);
+
+    if (editandoId && espSelect) {
+      try {
+        const confirma = window.confirm(
+          "Deseja remover a especialidade agora?",
+        );
+
+        if (confirma) {
+          await api.delete(`/funcionarios/${editandoId}/${espId}`);
+
+          setNovoFunc({
+            ...novoFunc,
+            especialidadesIds: novoFunc.especialidadesIds.filter(
+              (id) => id !== idStr,
+            ),
+          });
+
+          alert("Especialidade removida com sucesso");
+        }
+      } catch (error) {
+        console.error("Erro ao remover:", error);
+        alert("Não foi possivel remover a especialidade do especialista");
+      }
+    } else {
+      const novas = espSelect
+        ? novoFunc.especialidadesIds.filter((i) => i !== idStr)
+        : [...novoFunc.especialidadesIds, idStr];
+
+      setNovoFunc({ ...novoFunc, especialidadesIds: novas });
+    }
+  };
+
   const handleCancelar = () => {
     setEditandoId(null);
     setNovoFunc(estadoInicial);
@@ -166,7 +219,6 @@ export default function Funcionarios() {
     }
   };
 
-  // --- AÇÕES DA TABELA ---
   const handleDesativar = async (id) => {
     if (window.confirm("Deseja desativar este profissional?")) {
       try {
@@ -220,6 +272,7 @@ export default function Funcionarios() {
         onCancelar={handleCancelar}
         especialidades={especialidades}
         buscarCep={buscarCep}
+        handleToggleEspecialidade={handleToggleEspecialidade}
       />
 
       <FuncionarioTable

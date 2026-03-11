@@ -20,7 +20,6 @@ export default function AgendamentoForm({
     <div style={styles.card}>
       <h3 style={styles.cardTitle}>Preencha os detalhes</h3>
       <form onSubmit={onSubmit} style={styles.formAgendamento}>
-        {/* CLIENTE */}
         <div style={styles.inputGroup}>
           <label style={styles.label}>Cliente</label>
           <select
@@ -43,7 +42,6 @@ export default function AgendamentoForm({
           </select>
         </div>
 
-        {/* SERVIÇO */}
         <div style={styles.inputGroup}>
           <label style={styles.label}>Serviço (Especialidade)</label>
           <select
@@ -67,7 +65,6 @@ export default function AgendamentoForm({
           </select>
         </div>
 
-        {/* PROFISSIONAL */}
         <div style={styles.inputGroup}>
           <label style={styles.label}>Profissional</label>
           <select
@@ -90,7 +87,6 @@ export default function AgendamentoForm({
           </select>
         </div>
 
-        {/* DATA E HORA */}
         <div style={styles.inputGroup}>
           <label style={styles.label}>Data e Hora</label>
           <input

@@ -3,13 +3,13 @@ export const formatarMoeda = (valor) =>
     valor || 0,
   );
 
-export const formatarHora = (data) =>
-  data
-    ? new Date(data).toLocaleTimeString("pt-BR", {
-        hour: "2-digit",
-        minute: "2-digit",
-      })
-    : "--:--";
+export const formatarHora = (dataString) => {
+  if (!dataString) return "--:--";
+  const data = new Date(dataString);
+
+  const hora = data.getHours().toString().padStart(2, "0");
+  return `${hora}:00`;
+};
 
 export const formatarDataISO = (data) =>
   new Date(data).toISOString().split("T")[0];

@@ -10,6 +10,7 @@ export default function FuncionarioForm({
   onCancelar,
   especialidades,
   buscarCep,
+  handleToggleEspecialidade,
 }) {
   const updateEndereco = (campo, valor) => {
     setNovoFunc({
@@ -19,18 +20,6 @@ export default function FuncionarioForm({
         [campo]: valor,
       },
     });
-  };
-
-  // Função auxiliar para lidar com a seleção de especialidades
-  const handleToggleEspecialidade = (id) => {
-    const idStr = String(id);
-    const listaAtual = novoFunc.especialidadesIds || [];
-
-    const novas = listaAtual.includes(idStr)
-      ? listaAtual.filter((i) => i !== idStr)
-      : [...listaAtual, idStr];
-
-    setNovoFunc({ ...novoFunc, especialidadesIds: novas });
   };
 
   return (
