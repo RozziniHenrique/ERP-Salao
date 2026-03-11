@@ -5,7 +5,6 @@ create table funcionarios (
     email varchar(100) not null unique,
     telefone varchar(20),
     cpf varchar(11) not null unique,
-
     logradouro varchar(100) not null,
     bairro varchar(100) not null,
     cep varchar(9) not null,
