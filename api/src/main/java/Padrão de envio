@@ -1,0 +1,117 @@
+LOGIN -> POST http://localhost:8080/login
+
+JSON
+{
+       "login": "hrozzini@gmail.com",
+       "senha": "123456"
+}
+AGENDAMENTOS
+Cancelar -> DEL http://localhost:8080/agendamentos
+
+JSON
+{
+    "idAgendamento": 1,
+    "motivo": "Imprevisto de última hora"
+}
+Exibir -> GET http://localhost:8080/agendamentos // http://localhost:8080/agendamentos/1
+
+Cadastro -> POST http://localhost:8080/agendamentos
+
+JSON
+{
+    "idFuncionario":1,
+    "idCliente":1,
+    "idEspecialidade":1,
+    "data": "2026-02-22 09:00"
+}
+FUNCIONARIO
+Cancelar -> DEL http://localhost:8080/funcionarios/7
+
+Exibir -> GET http://localhost:8080/funcionarios // http://localhost:8080/funcionarios/1 // http://localhost:8080/funcionarios?idEspecialidade=1&size=5&sort=nome,desc
+
+Atualizar -> PUT http://localhost:8080/funcionarios/
+
+JSON
+{
+    "id": 1,
+    "nome":"Maria Fernanda",
+    "telefone": "11988887777",
+    "especialidadesIds": [1, 3]
+}
+Reativar -> PUT http://localhost:8080/funcionarios/7/reativar
+
+Cadastro -> POST http://localhost:8080/funcionarios
+
+JSON
+{
+  "nome": "Mafe Silva",
+  "email": "mafe@email.com",
+  "senha": "Senha",
+  "telefone": "1111111111",
+  "cpf": "11111112341",
+  "role": "FUNCIONARIO",
+  "endereco": {
+    "logradouro": "Rua Exemplo",
+    "bairro": "Bairro Central",
+    "cep": "01234567",
+    "cidade": "Santo André",
+    "uf": "SP",
+    "numero": "100",
+    "complemento": "Apto 12"
+  },
+  "especialidadesIds": [1, 2]
+}
+ESPECIALIDADES
+Atualizar -> PUT http://localhost:8080/especialidades
+
+JSON
+{
+  "id": 1,
+  "descricao": "Manicure"
+}
+Exibir -> GET http://localhost:8080/especialidades // http://localhost:8080/especialidades/1
+
+Cadastro -> POST http://localhost:8080/especialidades
+
+JSON
+{
+  "nome": "Teste",
+  "descricao": "Corte de Barba"
+}
+CLIENTE
+Atualizar -> PUT http://localhost:8080/clientes
+
+JSON
+{
+  "id": 1,
+  "nome": "Mafe",
+  "telefone": "11999999999",
+  "endereco": {
+    "logradouro": "Rua Exemplo",
+    "numero": "123",
+    "bairro": "Centro",
+    "cidade": "São Paulo",
+    "uf": "SP",
+    "cep": "01000000"
+  }
+}
+Exibir -> GET http://localhost:8080/clientes // http://localhost:8080/clientes/1
+
+Cadastro -> POST http://localhost:8080/clientes
+
+JSON
+{
+  "nome": "Ana Beatriz",
+  "email": "Anabe@email.com",
+  "telefone": "11111111111",
+  "cpf": "11111111111",
+  "role": "CLIENTE",
+  "endereco": {
+    "logradouro": "Avenida 1",
+    "numero": "1",
+    "bairro": "Centro",
+    "cidade": "São Paulo",
+    "uf": "SP",
+    "cep": "11111111"
+  }
+}
