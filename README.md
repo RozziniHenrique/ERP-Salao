@@ -1,4 +1,4 @@
-# 💈 Projeto de TCC -> STEFER - Gestão de Franquias de Beleza
+# 💈 Projeto de Estudo - Gestão de Franquias de Beleza
 
 API de alto desempenho para **Gestão de Franquias** e centros de estética, focada em inteligência de negócios, segurança de dados e automação de regras de agendamento.
 

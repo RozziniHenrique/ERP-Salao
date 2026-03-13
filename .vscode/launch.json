@@ -1,14 +1,24 @@
 {
-    "configurations": [
-        {
-            "type": "java",
-            "name": "Spring Boot-SteferApplication<api>",
-            "request": "launch",
-            "cwd": "${workspaceFolder}",
-            "mainClass": "uscs.STEFER.SteferApplication",
-            "projectName": "api",
-            "args": "",
-            "envFile": "${workspaceFolder}/.env"
-        }
-    ]
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Spring Boot-SteferApplication<api>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "uscs.STEFER.SteferApplication",
+      "projectName": "api",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot-ErpSalaoApplication<api>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "erp.Salao.ErpSalaoApplication",
+      "projectName": "api",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    }
+  ]
 }
